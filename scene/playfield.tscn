@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://blct8bxftwqea"]
+
+[ext_resource type="Script" uid="uid://iv3vmeviym6y" path="res://playfield.gd" id="1_0o0nv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0o0nv"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0o0nv"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1x8sw"]
+normal = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0o0nv"]
+size = Vector2(448, 64)
+
+[node name="Playfield" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -128.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0o0nv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0o0nv")
+
+[node name="ClearHazard" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.17045455
+anchor_right = 1.0
+anchor_bottom = 0.18181819
+color = Color(0.49803922, 0.49803922, 0.49803922, 0.49803922)
+metadata/_edit_use_anchors_ = true
+
+[node name="Colliders" type="StaticBody2D" parent="."]
+position = Vector2(224, 352)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(224, 0)
+shape = SubResource("WorldBoundaryShape2D_0o0nv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(-224, 16)
+shape = SubResource("WorldBoundaryShape2D_1x8sw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(0, -352)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_0o0nv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(0, 352)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_1x8sw")
+
+[node name="Blocks" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="DeleteZone" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeleteZone"]
+position = Vector2(224, 32)
+shape = SubResource("RectangleShape2D_0o0nv")
